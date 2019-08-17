@@ -1,20 +1,172 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="parent-container">
+  <div class="header">
 
+  </div>
+  <div class="content">
+    <div class="heading">
+      <span style="font-size: 18px">
+        Objective  > 
+      </span>
+      <span class="bold" style="font-size: 18px;padding-left: 10px">
+        Create Objective
+      </span>
+    </div>
+    <div class="content-container">
+      <div class="lhs-div">
+
+        <mat-vertical-stepper [linear]="isLinear" #stepper [selectedIndex]="selectedForm">
+          <mat-step>
+            <ng-template matStepLabel>DEFINE OBJECTIVE</ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>KRA</ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>WEIGHTAGE & PRIVACY</ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>SUBMIT</ng-template>
+          </mat-step>
+
+        </mat-vertical-stepper>
+
+      </div>
+      <div class="middle-div">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true" (opened)="openedExp(0)">
+            <mat-expansion-panel-header>
+              DEFINE OBJECTIVE
+            </mat-expansion-panel-header>
+            <app-objective #objective></app-objective>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel (opened)="openedExp(1)">
+            <mat-expansion-panel-header>
+              KRA
+            </mat-expansion-panel-header>
+            <div [formGroup]="group1">
+              <mat-form-field class="width-100">
+                <input matInput placeholder="Enter Title" formControlName="title">
+              </mat-form-field>
+              <mat-form-field class="width-100">
+                <textarea matInput placeholder="Description" formControlName="description"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="openedExp(2)">
+            <mat-expansion-panel-header>
+              WEIGHTAGE & PRIVACY
+            </mat-expansion-panel-header>
+            <div [formGroup]="group2">
+              <mat-form-field class="width-100">
+                <input matInput placeholder="Enter Title" formControlName="title">
+              </mat-form-field>
+              <mat-form-field class="width-100">
+                <textarea matInput placeholder="Description" formControlName="description"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="openedExp(3)">
+            <mat-expansion-panel-header>
+              SUBMIT
+            </mat-expansion-panel-header>
+            <div [formGroup]="group3">
+              <mat-form-field class="width-100">
+                <input matInput placeholder="Enter Title" formControlName="title">
+              </mat-form-field>
+              <mat-form-field class="width-100">
+                <textarea matInput placeholder="Description" formControlName="description"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+
+        <div class="btn-container">
+          <button mat-button style="background-color:gray" (click)="clearForm()">Clear Form</button>
+          <button mat-button style="background-color:rgb(60, 245, 60);margin-left: 20px" (click)="submitForm()">Submit
+            Form</button>
+        </div>
+      </div>
+      <div class="rhs-container">
+        <div class="summary">
+          <mat-card>
+            <mat-card-title>
+              Summary
+            </mat-card-title>
+            <mat-card-content>
+              <div *ngIf="outputData">
+
+                <h2>Objective Details</h2>
+                <div class="margin-5" *ngIf="outputData.title">
+                  <span class="bold">Title : </span>
+                  <span>{{outputData.title}}</span>
+                </div>
+                <div class="margin-5" *ngIf="outputData.description">
+                  <span class="bold">Description : </span>
+                  <span>{{outputData.description}}</span>
+                </div>
+                <div class="margin-5" *ngIf="outputData.startDate">
+                  <span class="bold">Start Date : </span>
+                  <span>{{outputData.startDate | date :'dd-MMM-yy'}}</span>
+                </div>
+                <div class="margin-5" *ngIf="outputData.endDate">
+                  <span class="bold">End Date : </span>
+                  <span>{{outputData.endDate | date :'dd-MMM-yy'}}</span>
+                </div>
+                <h4>Owners</h4>
+                <div class="margin-5" *ngIf="outputData.peopleDetails && outputData.peopleDetails.length">
+                  <div *ngFor="let dd of outputData.peopleDetails" class="margin-5 list">
+                    <img [src]="dd.fileUrl">
+                    <div class="width-50" style="margin-left: 5px">{{dd.name.name}}</div>
+                  </div>
+                </div>
+
+                <h2>KRA Details</h2>
+                <div class="margin-5" *ngIf="outputData.title1">
+                  <span class="bold">Title : </span>
+                  <span>{{outputData.title1}}</span>
+                </div>
+                <div class="margin-5" *ngIf="outputData.description1">
+                  <span class="bold">Description : </span>
+                  <span>{{outputData.description1}}</span>
+                </div>
+
+                <h2>Weightage Details</h2>
+                <div class="margin-5" *ngIf="outputData.title2">
+                  <span class="bold">Title : </span>
+                  <span>{{outputData.title2}}</span>
+                </div>
+                <div class="margin-5" *ngIf="outputData.description2">
+                  <span class="bold">Description : </span>
+                  <span>{{outputData.description2}}</span>
+                </div>
+
+                <h2>Details</h2>
+                <div class="margin-5" *ngIf="outputData.title3">
+                  <span class="bold">Title : </span>
+                  <span>{{outputData.title3}}</span>
+                </div>
+                <div class="margin-5" *ngIf="outputData.description3">
+                  <span class="bold">Description : </span>
+                  <span>{{outputData.description3}}</span>
+                </div>
+
+              </div>
+            </mat-card-content>
+            <!-- <mat-card-title>
+              Title
+            </mat-card-title>
+            <mat-card-subtitle>
+              Card subtitle
+            </mat-card-subtitle>
+            <mat-card-content>
+              Primary card content. Intended for blocks of text
+            </mat-card-content> -->
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

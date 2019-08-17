@@ -1,0 +1,96 @@
+<div class="parent-container" [formGroup]="formGroupDocable">
+    <mat-form-field class="width-100">
+        <input matInput placeholder="Enter Title" formControlName="title">
+    </mat-form-field>
+    <div class="error" *ngIf="savedClick && !formGroupDocable.get('title').value" style="margin-top: -16px">
+        *Required
+    </div>
+
+    <h2>Description</h2>
+
+    <mat-form-field class="width-100">
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <h2>Timeline</h2>
+
+    <mat-form-field class="width-50" style="padding-right: 20px">
+        <input matInput [matDatepicker]="picker" [min]="startDate" placeholder="Choose a date"
+            formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="width-50" style="padding-left: 20px">
+        <input matInput [matDatepicker]="picker1" placeholder="Choose a date"
+            [min]="this.formGroupDocable.get('startDate').value" [max]="maxDate()" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1 startView="month" [startAt]="startDate"
+            [disabled]="!formGroupDocable.get('startDate').value"></mat-datepicker>
+    </mat-form-field>
+
+    <h2>Owner</h2>
+
+    <mat-form-field class="gap">
+        <mat-label>Owner</mat-label>
+        <mat-select formControlName="owner">
+            <mat-option *ngFor="let owner of owners" [value]="owner.value">
+                {{owner.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <div formArrayName="peopleDetails">
+        <div *ngFor="let detail of peopleDetailsRef.controls;let i = index" [formGroupName]=i style="display: flex">
+            <div class="width-50  image-data">
+                <!-- <img [src]="peopleDetailsRef.controls[i].get('fileUrl').value" *ngIf="peopleDetailsRef.controls[i].get('fileUrl').value"> -->
+                <input type="file" style="overflow: hidden" value="upload" accept=".jpg" formControlName="file"
+                    (change)=fileUploader($event,i)>
+            </div>
+            <mat-form-field class="example-full-width">
+                <input type="text" placeholder="Owner Name" aria-label="Owner Name" matInput formControlName="name"
+                    [matAutocomplete]="auto" (click)="setArray($event,i,true)" (keyup)="setArray($event,i,false)">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredOptions" [value]="option">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                <div class="error" *ngIf="savedClick && !peopleDetailsRef.controls[i].get('name').value">
+                    *Required
+                </div>
+            </mat-form-field>
+            <div style="width:40px;display: flex;align-items: center;justify-content: flex-end; " *ngIf="i != 0">
+                <i class="material-icons" (click)="deleteRow(i)">delete</i>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-btn" *ngIf="formGroupDocable.get('owner').value != owners[1].value">
+        <button mat-button (click)="addPeople()">+ Add People</button>
+    </div>
+
+    <h2>Alignment</h2>
+
+    <mat-form-field class="gap">
+        <mat-label>Alignment</mat-label>
+        <mat-select formControlName="alignment">
+            <mat-option *ngFor="let alignment of alignments" [value]="alignment.value">
+                {{alignment.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="formGroupDocable.get('alignment').value == alignments[0].value">
+        <mat-radio-group aria-label="Select an option" formControlName="selectedCategory">
+            <mat-radio-button [value]="category.value" *ngFor="let category of bscCategory">{{category.label}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div *ngIf="formGroupDocable.get('alignment').value == alignments[1].value">
+        <mat-radio-group aria-label="Select an option" formControlName="selectedFn">
+            <mat-radio-button [value]="fn.value" *ngFor="let fn of functional">{{fn.label}}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>

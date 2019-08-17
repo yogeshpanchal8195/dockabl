@@ -1,0 +1,146 @@
+.parent-container{
+    width: 100%;
+    height: 100vh;
+    .header{
+        width: 100%;
+        height: 60px;
+        background-color: #3f48cc;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0px;
+    }
+}
+
+.heading{
+    height: 60px;
+    width: 100%;
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    background-color: #efefef;
+    z-index: 99;
+}
+
+.content{
+        margin-top: 60px;
+}
+
+.content-container{
+    float: left;
+    width:100% ;
+    margin-top: 60px;
+    .lhs-div{
+        width: 20%;
+        position: fixed;
+        float: left;
+        padding-left: 12px;
+        .mat-stepper-vertical{
+            background-color: #efefef;
+            
+        }
+    }
+    .middle-div{
+        margin-left: 20%;
+        width:50% ;
+        float: left;
+        padding: 0 24px;
+    }
+    .rhs-container{
+        width: 30%;
+        float: left;
+        padding: 20px;
+        position: fixed;
+        right: 0;
+        .summary{
+            width: 100%;
+            height: 100%;
+            max-height: calc(100vh - 200px);
+            overflow: auto;
+            background-color: aqua;
+        }
+    }
+}
+
+mat-expansion-panel{
+    margin-top: 20px;
+}
+
+:host ::ng-deep .mat-expansion-panel-spacing{
+    margin-top: 20px !important;
+}
+
+:host ::ng-deep .mat-vertical-stepper-header.mat-step-header .mat-step-icon-state-number.mat-step-icon.mat-step-icon-selected{
+    height: 15px;
+    width: 15px;
+    color: darkblue;
+}
+
+:host ::ng-deep .mat-vertical-stepper-header.mat-step-header .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    font-weight: bold;
+    color: darkblue;
+}
+
+:host ::ng-deep .mat-step-header:hover{
+    background-color: #efefef !important;
+}
+
+:host ::ng-deep .mat-vertical-content-container.mat-stepper-vertical-line .mat-vertical-stepper-content{
+    display: none;
+}
+
+:host ::ng-deep .mat-step-icon-state-number.mat-step-icon{
+    width: 12px;
+    height: 12px;    
+}
+
+:host ::ng-deep .mat-step-icon-state-number.mat-step-icon span{
+    display: none;
+}
+
+:host ::ng-deep .mat-step-label.mat-step-label-active{
+    font-size: 11px;
+}
+
+:host ::ng-deep .mat-step-icon-state-edit.mat-step-icon{
+    width: 12px;
+    height: 12px;
+}
+
+:host ::ng-deep .mat-step-icon-state-edit.mat-step-icon div{
+    display: none;
+}
+
+:host ::ng-deep .mat-stepper-vertical-line::before{
+    content: '';
+    position: absolute;
+    top: -30px;
+    bottom: -30px;
+    left: -6px;
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+
+.btn-container{
+    margin: 35px 0;
+    display: flex;
+    justify-content: flex-end;
+    button{
+        color: white;
+        width: 50%;
+
+    }
+}
+
+img{
+    height: 45px;
+    border-radius: 50px;
+    width: 45px;
+}
+
+.list{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
